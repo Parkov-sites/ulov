@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Улов</title>
+<meta name="description" content="Идея прячется где угодно. Охота за идеями для эскизов.">
+<meta name="theme-color" content="#0D0D0C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Улов">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<style>
+@font-face{font-family:"Literata";font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/Literata-cyrillic.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Literata";font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/Literata-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Inter Tight";font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/InterTight-cyrillic.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Inter Tight";font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/InterTight-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+:root{
+  --bg:#0D0D0C; --raise:#161614; --raise2:#1E1E1B; --line:#2A2A27; --ink:#EEEDE9; --muted:#93928C; --dim:#6B6A65;
+  --accent:#F37021; --on-accent:#121211; --paper:#ECE7DE; --paper-ink:#121211;
+  --serif:"Literata",Georgia,serif; --sans:"Inter Tight",-apple-system,system-ui,sans-serif;
+  --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+  --gutter:20px; --r:14px;
+}
+*{box-sizing:border-box;margin:0}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 var(--sans);min-height:100dvh;
+  -webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.07;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+.wrap{max-width:560px;margin:0 auto;padding:calc(var(--safe-t) + 18px) var(--gutter) calc(var(--safe-b) + 96px)}
+
+/* шапка */
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.mark{font:600 15px/1 var(--sans);letter-spacing:.02em}
+.mark i{font-style:normal;color:var(--accent)}
+.stats{font-size:13px;color:var(--muted);text-align:right}
+.hero{font:400 clamp(34px,10.5vw,46px)/1.04 var(--serif);letter-spacing:-.02em;margin:34px 0 12px;text-wrap:balance}
+.hero em{font-style:italic;color:var(--accent)}
+.lead{color:var(--muted);font-size:15px;max-width:30ch}
+.big{display:flex;align-items:center;justify-content:space-between;width:100%;margin:26px 0 22px;padding:18px 20px;
+  background:var(--accent);color:var(--on-accent);border-radius:var(--r);font:600 18px/1 var(--sans);transition:transform .12s}
+.big:active{transform:scale(.98)}
+.big svg{width:22px;height:22px}
+
+/* двери */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.door{position:relative;text-align:left;padding:14px 14px 15px;min-height:118px;background:var(--raise);border:1px solid var(--line);
+  border-radius:var(--r);display:flex;flex-direction:column;gap:6px;transition:transform .12s,background .12s}
+.door:active{transform:scale(.98);background:var(--raise2)}
+.door .no{font:500 11px/1 var(--sans);color:var(--dim);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.door .nm{font:500 21px/1.1 var(--serif);letter-spacing:-.01em}
+.door .ts{font-size:13px;line-height:1.35;color:var(--muted)}
+.foot{margin-top:26px;font-size:12px;color:var(--dim);line-height:1.5}
+
+/* нижняя панель */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:center;gap:8px;
+  padding:10px var(--gutter) calc(var(--safe-b) + 10px);background:linear-gradient(to top,var(--bg) 70%,rgba(13,13,12,0))}
+.tabs button{flex:1;max-width:260px;padding:13px 0;border-radius:12px;background:var(--raise);border:1px solid var(--line);
+  font:600 15px/1 var(--sans);color:var(--muted)}
+.tabs button[aria-current="page"]{color:var(--ink);border-color:#3a3a36;background:var(--raise2)}
+.tabs b{font-weight:600;color:var(--accent);margin-left:4px}
+
+/* находка */
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.iconbtn{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--raise);border:1px solid var(--line);flex:none}
+.iconbtn svg{width:20px;height:20px}
+.bar .dn{font:500 22px/1 var(--serif)}
+.bar .num{margin-left:auto;font-size:13px;color:var(--dim);font-variant-numeric:tabular-nums}
+.card{animation:in .22s ease-out}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.card{animation:none}}
+.kicker{font-size:13px;color:var(--muted);margin-bottom:8px}
+.main{font:400 clamp(30px,9vw,40px)/1.1 var(--serif);letter-spacing:-.015em;text-wrap:balance}
+.main.long{font-size:clamp(24px,6.8vw,30px);line-height:1.22}
+.sub{margin-top:12px;color:var(--muted);font-size:15px;line-height:1.5}
+.task{margin-top:20px;padding:14px 16px;border-left:3px solid var(--accent);background:var(--raise);border-radius:0 10px 10px 0;font-size:16px;line-height:1.45}
+.task .lbl,.xrow .lbl{display:block;font:600 11px/1 var(--sans);letter-spacing:.06em;color:var(--accent);margin-bottom:7px}
+.art{margin:0 calc(var(--gutter) * -1);background:#000;display:flex;justify-content:center}
+.art img{display:block;width:100%;height:auto;max-height:58dvh;object-fit:contain}
+.art.wait img{opacity:0}
+.cap{margin-top:14px}
+.cap .t{font:500 21px/1.2 var(--serif)}
+.cap .a{margin-top:4px;color:var(--muted);font-size:14px}
+.cap .s{margin-top:10px;font-size:15px;line-height:1.5;color:#cfcdc7}
+.cap a{color:var(--dim);font-size:12px;text-decoration:none;border-bottom:1px solid var(--line)}
+.xbtns{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.chip{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:var(--raise);font-size:14px;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+.chip svg{width:16px;height:16px}
+.chip.on{border-color:var(--accent);color:var(--accent)}
+.xrow{margin-top:12px;padding:12px 16px;background:var(--raise);border-radius:10px;font-size:15px}
+.method{margin-top:22px;font:italic 400 14px/1.5 var(--serif);color:var(--muted)}
+.actions{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:center;gap:8px;
+  padding:10px var(--gutter) calc(var(--safe-b) + 10px);background:linear-gradient(to top,var(--bg) 70%,rgba(13,13,12,0))}
+.actions button{flex:1;max-width:260px;padding:16px 0;border-radius:12px;font:600 16px/1 var(--sans);background:var(--raise2);border:1px solid var(--line)}
+.actions .primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.actions .primary.done{background:var(--raise2);color:var(--accent);border-color:var(--accent)}
+.actions button:active{transform:scale(.98)}
+
+/* холст: пятно и камера */
+.canvasbox{position:relative;margin:0 calc(var(--gutter) * -1);background:var(--paper);touch-action:none}
+.canvasbox canvas{display:block;width:100%;height:auto}
+.canvasbox .draw{position:absolute;inset:0;width:100%;height:100%}
+.hint{position:absolute;left:12px;bottom:10px;font-size:12px;color:#6d6a63;pointer-events:none}
+.tools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.range{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:13px;color:var(--muted)}
+.range input{flex:1;accent-color:var(--accent)}
+.empty-cam{aspect-ratio:1;display:grid;place-items:center;text-align:center;color:#6d6a63;padding:24px;font-size:15px}
+.pick{display:inline-flex;align-items:center;gap:8px;padding:14px 18px;border-radius:12px;background:var(--paper-ink);color:var(--paper);font:600 15px/1 var(--sans)}
+
+/* улов */
+h2.h{font:400 34px/1.05 var(--serif);letter-spacing:-.02em;margin:26px 0 6px}
+.month{display:grid;grid-template-columns:repeat(auto-fill,minmax(16px,1fr));gap:5px;margin:16px 0 6px}
+.month i{aspect-ratio:1;border-radius:4px;background:var(--raise2)}
+.month i.on{background:var(--accent)}
+.month i.today{outline:1px solid var(--muted);outline-offset:1px}
+.mlbl{font-size:13px;color:var(--muted)}
+.list{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.item{display:flex;gap:12px;padding:12px;background:var(--raise);border:1px solid var(--line);border-radius:var(--r)}
+.item .th{width:72px;height:72px;flex:none;border-radius:8px;object-fit:cover;background:#000}
+.item .bd{flex:1;min-width:0}
+.item .dr{font-size:12px;color:var(--dim)}
+.item .tx{font:500 17px/1.25 var(--serif);margin-top:3px;overflow-wrap:anywhere}
+.item .ex{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.4}
+.item .ib{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.item .ib button{padding:8px 11px;border-radius:999px;border:1px solid var(--line);font-size:13px;color:var(--muted)}
+.item .ib button.on{color:var(--on-accent);background:var(--accent);border-color:var(--accent)}
+.item .sk{width:72px;height:72px;border-radius:8px;object-fit:cover;flex:none}
+.none{margin-top:30px;color:var(--muted);font-size:15px;line-height:1.5}
+.toast{position:fixed;left:50%;top:calc(var(--safe-t) + 14px);transform:translateX(-50%);z-index:30;background:var(--paper);color:var(--paper-ink);
+  padding:10px 16px;border-radius:999px;font:600 14px/1 var(--sans);opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+@media (min-width:700px){.art,.canvasbox{margin:0;border-radius:var(--r);overflow:hidden}}
+</style>
+</head>
+<body>
+
+<main id="home" class="wrap">
+  <header class="top">
+    <div class="mark">Улов<i>.</i></div>
+    <div class="stats" id="stats"></div>
+  </header>
+  <h1 class="hero">Идея прячется <em>где угодно</em>.</h1>
+  <p class="lead">Выбери, где искать. Зацепило — забирай в улов.</p>
+  <button class="big" id="surprise">Удиви меня
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </button>
+  <div class="doors" id="doors"></div>
+  <p class="foot">Картины — из открытых коллекций Чикагского и Кливлендского музеев искусств, общественное достояние. Всё, что ты ловишь, хранится только в этом телефоне.</p>
+</main>
+
+<section id="find" class="wrap" hidden>
+  <div class="bar">
+    <button class="iconbtn" id="back" aria-label="Назад">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+    </button>
+    <div class="dn" id="fDoor"></div>
+    <div class="num" id="fNum"></div>
+  </div>
+  <div id="fBody"></div>
+  <div class="xbtns">
+    <button class="chip" id="twistBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"/></svg>Поворот</button>
+    <button class="chip" id="limitBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Ограничение</button>
+  </div>
+  <div class="xrow" id="twistRow" hidden><span class="lbl">ПОВОРОТ</span><span id="twistTx"></span></div>
+  <div class="xrow" id="limitRow" hidden><span class="lbl">ОГРАНИЧЕНИЕ</span><span id="limitTx"></span></div>
+  <p class="method" id="fMethod"></p>
+</section>
+
+<section id="catch" class="wrap" hidden>
+  <header class="top">
+    <div class="mark">Улов<i>.</i></div>
+    <div class="stats" id="stats2"></div>
+  </header>
+  <h2 class="h">Твой улов</h2>
+  <div class="month" id="month"></div>
+  <div class="mlbl" id="mlbl"></div>
+  <div class="list" id="list"></div>
+</section>
+
+<nav class="tabs" id="tabs">
+  <button data-go="home" aria-current="page">Охота</button>
+  <button data-go="catch">Улов<b id="tabCount"></b></button>
+</nav>
+<div class="actions" id="actions" hidden>
+  <button id="next">Ещё</button>
+  <button class="primary" id="take">В улов</button>
+</div>
+<div class="toast" id="toast"></div>
+<input type="file" id="camInput" accept="image/*" hidden>
+<input type="file" id="sketchInput" accept="image/*" hidden>
+
+<script src="data.js"></script>
+<script src="art.js"></script>
+<script>
+"use strict";
+const D = window.DATA, ART = window.ART;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const rnd = n => Math.floor(Math.random() * n);
+const pick = a => a[rnd(a.length)];
+
+/* ---------- хранение ---------- */
+const KEY = "ulov-v1";
+function load() { try { return JSON.parse(localStorage.getItem(KEY)) || { items: [] }; } catch (e) { return { items: [] }; } }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast("Не удалось сохранить"); } }
+const S = load();
+
+// колоды: всё по кругу, без повторов, пока не пройдёшь всё
+function deal(id, len) {
+  const k = "ulov-deck-" + id;
+  let d; try { d = JSON.parse(localStorage.getItem(k)); } catch (e) {}
+  if (!Array.isArray(d) || !d.length || d.some(i => i >= len)) {
+    d = [...Array(len).keys()];
+    for (let i = d.length - 1; i > 0; i--) { const j = rnd(i + 1); [d[i], d[j]] = [d[j], d[i]]; }
+  }
+  const v = d.pop();
+  try { localStorage.setItem(k, JSON.stringify(d)); } catch (e) {}
+  return v;
+}
+
+// картинки (пятна, снимки, эскизы) — в IndexedDB
+const IDB = (() => {
+  let dbp;
+  const open = () => dbp || (dbp = new Promise((res, rej) => {
+    const r = indexedDB.open("ulov", 1);
+    r.onupgradeneeded = () => r.result.createObjectStore("img");
+    r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+  }));
+  const tx = async (mode, fn) => { const db = await open(); return new Promise((res, rej) => {
+    const t = db.transaction("img", mode), st = t.objectStore("img"), q = fn(st);
+    t.oncomplete = () => res(q && q.result); t.onerror = () => rej(t.error); }); };
+  return { put: (k, v) => tx("readwrite", st => st.put(v, k)), get: k => tx("readonly", st => st.get(k)), del: k => tx("readwrite", st => st.delete(k)) };
+})();
+
+let toastT;
+function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("on"), 1600); }
+
+/* ---------- главный экран ---------- */
+function renderDoors() {
+  $("#doors").innerHTML = D.doors.map((d, i) =>
+    `<button class="door" data-door="${d.id}"><span class="no">${String(i + 1).padStart(2, "0")}</span><span class="nm">${esc(d.name)}</span><span class="ts">${esc(d.teaser)}</span></button>`).join("");
+}
+const today = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+function stats() {
+  const n = S.items.length, dr = S.items.filter(i => i.drawn).length;
+  const days = new Set(S.items.filter(i => i.drawn).map(i => i.drawn)).size;
+  const t = n ? `поймано ${n} · нарисовано ${dr}` : "пока пусто";
+  $("#stats").textContent = t; $("#stats2").textContent = days ? `дней с линией: ${days}` : "";
+  $("#tabCount").textContent = n ? " " + n : "";
+}
+
+/* ---------- навигация ---------- */
+let screen = "home";
+function go(to) {
+  screen = to;
+  $("#home").hidden = to !== "home"; $("#find").hidden = to !== "find"; $("#catch").hidden = to !== "catch";
+  $("#tabs").hidden = to === "find"; $("#actions").hidden = to !== "find";
+  document.querySelectorAll("#tabs button").forEach(b => {
+    if (b.dataset.go === to) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+  });
+  if (to === "catch") renderCatch();
+  if (to === "home") stats();
+  window.scrollTo(0, 0);
+}
+
+/* ---------- находка ---------- */
+let cur = null;  // текущая находка
+let seen = 0;    // сколько находок за этот заход в дверь
+
+function find(id) {
+  const door = D.doors.find(d => d.id === id);
+  seen++;
+  $("#fDoor").textContent = door.name;
+  $("#fNum").textContent = seen > 1 ? "№ " + seen : "";
+  $("#fMethod").textContent = door.method;
+  $("#twistRow").hidden = true; $("#limitRow").hidden = true;
+  $("#twistBtn").classList.remove("on"); $("#limitBtn").classList.remove("on");
+  $("#take").classList.remove("done"); $("#take").textContent = "В улов";
+  cur = { door: id, twist: "", limit: "" };
+  const B = $("#fBody");
+  let h = "";
+  if (id === "museum") {
+    const a = ART[deal("museum", ART.length)];
+    const st = pick(D.steal);
+    cur.art = a.n; cur.text = a.t; cur.sub = a.a + (a.y ? ", " + a.y : ""); cur.task = st;
+    h = `<div class="art wait"><img src="${a.img}" alt="${esc(a.t)}"></div>
+      <div class="cap"><div class="t">${esc(a.t)}</div><div class="a">${esc(a.a)}${a.y ? ", " + esc(a.y) : ""} · ${esc(a.k)}</div>
+      ${a.s ? `<p class="s">${esc(a.s)}</p>` : ""}</div>
+      <div class="task"><span class="lbl">УКРАДИ</span>${esc(st)}</div>
+      <p class="sub"><a href="${a.link}" target="_blank" rel="noopener" style="color:var(--dim);font-size:12px">${esc(a.m)} — открыть в музее</a></p>`;
+    B.innerHTML = `<div class="card">${h}</div>`;
+    const img = B.querySelector("img"); img.onload = () => img.parentNode.classList.remove("wait");
+    if (img.complete) img.parentNode.classList.remove("wait");
+    const nx = ART[(ART.indexOf(a) + 1) % ART.length]; new Image().src = nx.img;
+  } else if (id === "blot" || id === "camera") {
+    cur.task = "Что ты видишь? Обведи пальцем.";
+    cur.text = id === "blot" ? "Пятно" : "Снимок";
+    B.innerHTML = `<div class="card">${canvasUI(id)}<div class="task"><span class="lbl">НАЙДИ</span>Что ты видишь? Обведи пальцем — потом дорисуешь на бумаге.</div></div>`;
+    setupCanvas(id);
+  } else {
+    const t = textFind(id);
+    Object.assign(cur, t);
+    h = `${t.kicker ? `<div class="kicker">${esc(t.kicker)}</div>` : ""}
+      <div class="main${t.text.length > 46 ? " long" : ""}">${esc(t.text)}</div>
+      ${t.sub ? `<p class="sub">${esc(t.sub)}</p>` : ""}
+      <div class="task"><span class="lbl">ЗАДАНИЕ</span>${esc(t.task)}</div>`;
+    B.innerHTML = `<div class="card">${h}</div>`;
+  }
+  go("find");
+}
+
+function textFind(id) {
+  switch (id) {
+    case "idiom": return { text: D.idiom[deal(id, D.idiom.length)], task: pick(D.idiomTask) };
+    case "word": return { text: "«" + D.word[deal(id, D.word.length)] + "»", task: pick(D.wordTask) };
+    case "song": { const s = D.song[deal(id, D.song.length)];
+      return { text: s[0], kicker: s[1], sub: s[2] ? "«" + s[2] + "»" : "", task: pick(D.songTask) }; }
+    case "story": { const s = D.story[deal(id, D.story.length)]; return { text: s[0], sub: s[1], task: pick(D.storyTask) }; }
+    case "symbol": { const s = D.symbol[deal(id, D.symbol.length)];
+      return { text: s[0], sub: s[1], task: pick(D.symbolTask).replace("%s", s[2]) }; }
+    case "around": return { text: D.around[deal(id, D.around.length)], task: "Сначала найди глазами, потом рисуй." };
+    case "memory": return { text: D.memory[deal(id, D.memory.length)], task: pick(D.memoryTask) };
+    case "whatif": return { text: D.whatif[deal(id, D.whatif.length)], task: "Нарисуй ответ одним кадром." };
+    case "collide": { let a = pick(D.collide), b = pick(D.collide); while (b === a) b = pick(D.collide);
+      return { text: a[0].toUpperCase() + a.slice(1) + " + " + b, task: pick(D.collideTask) }; }
+  }
+}
+
+/* поворот и ограничение — по желанию */
+$("#twistBtn").onclick = () => { cur.twist = pick(D.twist); $("#twistTx").textContent = cur.twist; $("#twistRow").hidden = false; $("#twistBtn").classList.add("on"); };
+$("#limitBtn").onclick = () => { cur.limit = pick(D.limit); $("#limitTx").textContent = cur.limit; $("#limitRow").hidden = false; $("#limitBtn").classList.add("on"); };
+
+/* ---------- пятно и камера ---------- */
+const SZ = 900;
+let cv = {};
+function canvasUI(id) {
+  if (id === "blot") return `<div class="canvasbox"><canvas id="ink" width="${SZ}" height="${SZ}"></canvas><canvas class="draw" id="pen" width="${SZ}" height="${SZ}"></canvas><span class="hint">рисуй пальцем</span></div>
+    <div class="tools"><button class="chip" id="reblot">Другое пятно</button><button class="chip" id="mirror">Зеркально</button><button class="chip" id="wipe">Стереть линии</button></div>`;
+  return `<div class="canvasbox"><div class="empty-cam" id="camEmpty"><div>Сними стену, асфальт, тень, складки ткани — что угодно.<br><br><button class="pick" id="camPick">Снять или выбрать фото</button></div></div>
+    <canvas id="ink" width="${SZ}" height="${SZ}" hidden></canvas><canvas class="draw" id="pen" width="${SZ}" height="${SZ}" hidden></canvas></div>
+    <div class="range" id="camRange" hidden>светлее<input type="range" id="thr" min="20" max="235" value="128">темнее</div>
+    <div class="tools" id="camTools" hidden><button class="chip" id="camPick2">Другой снимок</button><button class="chip" id="wipe">Стереть линии</button></div>`;
+}
+
+function setupCanvas(id) {
+  cv = { ink: $("#ink"), pen: $("#pen"), id, mirror: Math.random() < .5 };
+  bindPen(cv.pen);
+  if (id === "blot") {
+    $("#mirror").classList.toggle("on", cv.mirror);
+    $("#reblot").onclick = () => { drawBlot(); clearPen(); };
+    $("#mirror").onclick = () => { cv.mirror = !cv.mirror; $("#mirror").classList.toggle("on", cv.mirror); drawBlot(); clearPen(); };
+    drawBlot();
+  } else {
+    const pickPhoto = () => $("#camInput").click();
+    $("#camPick").onclick = pickPhoto;
+    $("#camPick2").onclick = pickPhoto;
+    $("#thr").oninput = () => camRender();
+  }
+  $("#wipe").onclick = clearPen;
+}
+
+// клякса: ветвистые потёки из мягких кругов → рваный край шумом → порог → чернила на бумаге
+function noiseField(N, cells) {
+  const G = cells + 1, v = Float32Array.from({ length: G * G }, Math.random), out = new Float32Array(N * N);
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const fx = x / N * cells, fy = y / N * cells, x0 = fx | 0, y0 = fy | 0;
+    let tx = fx - x0, ty = fy - y0; tx = tx * tx * (3 - 2 * tx); ty = ty * ty * (3 - 2 * ty);
+    const a = v[y0 * G + x0], b = v[y0 * G + x0 + 1], c = v[(y0 + 1) * G + x0], d = v[(y0 + 1) * G + x0 + 1];
+    out[y * N + x] = (a * (1 - tx) + b * tx) * (1 - ty) + (c * (1 - tx) + d * tx) * ty;
+  }
+  return out;
+}
+function drawBlot() {
+  const N = 300, f = new Float32Array(N * N), M = 18, half = cv.mirror;
+  const add = (cx, cy, r, w = 1) => {
+    const x0 = Math.max(0, Math.floor(cx - r * 2)), x1 = Math.min(N - 1, Math.ceil(cx + r * 2));
+    const y0 = Math.max(0, Math.floor(cy - r * 2)), y1 = Math.min(N - 1, Math.ceil(cy + r * 2));
+    for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+      const d2 = ((x - cx) ** 2 + (y - cy) ** 2) / (r * r); if (d2 < 4) f[y * N + x] += w * Math.exp(-d2 * 1.6);
+    }
+  };
+  const clampX = x => Math.min((half ? N / 2 + 6 : N) - M, Math.max(M, x)), clampY = y => Math.min(N - M, Math.max(M, y));
+  const cx0 = half ? N / 2 - 10 : N / 2, cy0 = N / 2 + (Math.random() - .5) * 30;
+  for (let i = 0; i < 2 + rnd(3); i++) add(cx0 + (Math.random() - .5) * 30, cy0 + (Math.random() - .5) * 50, 21 + Math.random() * 20);
+  const ends = [], arms = 3 + rnd(4);
+  for (let k = 0; k < arms; k++) {
+    let x = cx0 + (Math.random() - .5) * 20, y = cy0 + (Math.random() - .5) * 40;
+    let ang = half ? Math.PI / 2 + Math.random() * Math.PI : Math.random() * Math.PI * 2;
+    let r = 12 + Math.random() * 17; const steps = 5 + rnd(10);
+    for (let s = 0; s < steps; s++) {
+      add(x, y, r);
+      ang += (Math.random() - .5) * .9; x = clampX(x + Math.cos(ang) * r * .95); y = clampY(y + Math.sin(ang) * r * .95);
+      r = Math.max(2.2, r * (.8 + Math.random() * .14));
+    }
+    ends.push([x, y]);
+  }
+  for (const [ex, ey] of ends) for (let i = 0; i < 2 + rnd(6); i++) {            // брызги кучками у концов
+    const a = Math.random() * Math.PI * 2, d = 8 + Math.random() * 30;
+    add(clampX(ex + Math.cos(a) * d), clampY(ey + Math.sin(a) * d), 1.6 + Math.random() * 3.6, 1.1);
+  }
+  for (let i = 0; i < 4 + rnd(10); i++) {                                         // редкие дальние капли
+    add(clampX(cx0 + (Math.random() - .5) * 220), clampY(cy0 + (Math.random() - .5) * 240), 1.3 + Math.random() * 2.6, 1.1);
+  }
+  if (Math.random() < .6) for (let k = 0; k < 1 + rnd(3); k++) {                  // потёки вниз
+    let x = clampX(cx0 + (Math.random() - .5) * 70), y = cy0 + 10; const len = 30 + Math.random() * 60;
+    for (let t = 0; t < len && y < N - M; t += 2) { add(x, y, 3 - t / len * 1.8); y += 2; x = clampX(x + (Math.random() - .5) * .8); }
+  }
+  if (half) for (let yy = 0; yy < N; yy++) for (let xx = 0; xx < N / 2; xx++) f[yy * N + (N - 1 - xx)] = f[yy * N + xx];
+  const n1 = noiseField(N, 7), n2 = noiseField(N, 19), n3 = noiseField(N, 4);
+  const g = cv.ink.getContext("2d"), img = g.createImageData(SZ, SZ), px = img.data, k = N / SZ;
+  const ink = [16, 16, 15], pap = [236, 231, 222];
+  for (let j = 0; j < SZ; j++) for (let i = 0; i < SZ; i++) {
+    const fx = Math.min(N - 1.001, i * k), fy = Math.min(N - 1.001, j * k), x0 = fx | 0, y0 = fy | 0, tx = fx - x0, ty = fy - y0, o0 = y0 * N + x0;
+    const lerp = arr => (arr[o0] * (1 - tx) + arr[o0 + 1] * tx) * (1 - ty) + (arr[o0 + N] * (1 - tx) + arr[o0 + N + 1] * tx) * ty;
+    const v = lerp(f) * (.62 + .55 * lerp(n1) + .25 * (lerp(n2) - .5));
+    const a = Math.min(1, Math.max(0, (v - .5) / .045 + .5)) * (.86 + .14 * lerp(n3));
+    const o = (j * SZ + i) * 4, gr = (Math.random() - .5) * 10;
+    px[o] = pap[0] + (ink[0] - pap[0]) * a + gr; px[o + 1] = pap[1] + (ink[1] - pap[1]) * a + gr; px[o + 2] = pap[2] + (ink[2] - pap[2]) * a + gr; px[o + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+}
+
+// камера: снимок → серый → размытие → порог
+let camGray = null;
+$("#camInput").onchange = e => {
+  const file = e.target.files[0]; e.target.value = ""; if (!file) return;
+  const url = URL.createObjectURL(file), im = new Image();
+  im.onload = () => {
+    const c = document.createElement("canvas"); c.width = c.height = SZ; const g = c.getContext("2d");
+    const s = Math.max(SZ / im.width, SZ / im.height), w = im.width * s, h = im.height * s;
+    g.drawImage(im, (SZ - w) / 2, (SZ - h) / 2, w, h); URL.revokeObjectURL(url);
+    const d = g.getImageData(0, 0, SZ, SZ).data, gray = new Float32Array(SZ * SZ);
+    for (let i = 0; i < SZ * SZ; i++) gray[i] = d[i * 4] * .3 + d[i * 4 + 1] * .59 + d[i * 4 + 2] * .11;
+    camGray = boxBlur(boxBlur(gray, SZ, 3), SZ, 3);
+    const sorted = Float32Array.from(camGray).sort(); $("#thr").value = Math.round(sorted[sorted.length >> 1]);
+    $("#camEmpty").hidden = true; cv.ink.hidden = false; cv.pen.hidden = false;
+    $("#camRange").hidden = false; $("#camTools").hidden = false;
+    clearPen(); camRender();
+  };
+  im.src = url;
+};
+function boxBlur(src, n, r) {
+  const out = new Float32Array(src.length), tmp = new Float32Array(src.length);
+  for (let y = 0; y < n; y++) { let s = 0; for (let x = -r; x <= r; x++) s += src[y * n + Math.min(n - 1, Math.max(0, x))];
+    for (let x = 0; x < n; x++) { tmp[y * n + x] = s / (2 * r + 1); s += src[y * n + Math.min(n - 1, x + r + 1)] - src[y * n + Math.max(0, x - r)]; } }
+  for (let x = 0; x < n; x++) { let s = 0; for (let y = -r; y <= r; y++) s += tmp[Math.min(n - 1, Math.max(0, y)) * n + x];
+    for (let y = 0; y < n; y++) { out[y * n + x] = s / (2 * r + 1); s += tmp[Math.min(n - 1, y + r + 1) * n + x] - tmp[Math.max(0, y - r) * n + x]; } }
+  return out;
+}
+function camRender() {
+  if (!camGray) return;
+  const t = +$("#thr").value, g = cv.ink.getContext("2d"), img = g.createImageData(SZ, SZ), px = img.data;
+  for (let i = 0; i < SZ * SZ; i++) {
+    const a = Math.min(1, Math.max(0, (t - camGray[i]) / 6 + .5)), o = i * 4, gr = (Math.random() - .5) * 10;
+    px[o] = 236 - 218 * a + gr; px[o + 1] = 231 - 213 * a + gr; px[o + 2] = 222 - 205 * a + gr; px[o + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+}
+
+// рисование пальцем
+function bindPen(c) {
+  const g = c.getContext("2d"); g.lineCap = g.lineJoin = "round"; g.strokeStyle = "#F37021"; g.lineWidth = 7;
+  let last = null;
+  const pt = e => { const r = c.getBoundingClientRect(); return [(e.clientX - r.left) * SZ / r.width, (e.clientY - r.top) * SZ / r.height]; };
+  c.onpointerdown = e => { c.setPointerCapture(e.pointerId); last = pt(e); g.beginPath(); g.arc(last[0], last[1], 3.5, 0, 7); g.fillStyle = g.strokeStyle; g.fill(); cv.drew = true; };
+  c.onpointermove = e => { if (!last) return; const p = pt(e); g.beginPath(); g.moveTo(last[0], last[1]); g.lineTo(p[0], p[1]); g.stroke(); last = p; };
+  c.onpointerup = c.onpointercancel = () => { last = null; };
+}
+function clearPen() { if (cv.pen) cv.pen.getContext("2d").clearRect(0, 0, SZ, SZ); cv.drew = false; }
+function snapshot() {
+  const c = document.createElement("canvas"); c.width = c.height = 640; const g = c.getContext("2d");
+  g.drawImage(cv.ink, 0, 0, 640, 640); g.drawImage(cv.pen, 0, 0, 640, 640);
+  return new Promise(res => c.toBlob(res, "image/jpeg", .82));
+}
+
+/* ---------- в улов ---------- */
+$("#take").onclick = async () => {
+  if (!cur || $("#take").classList.contains("done")) return;
+  if (cur.door === "camera" && !camGray) { toast("Сначала сними фото"); return; }
+  const it = { id: Date.now().toString(36) + rnd(1e4), door: cur.door, at: today(), text: cur.text, sub: cur.sub || "",
+    task: cur.task || "", twist: cur.twist || "", limit: cur.limit || "", art: cur.art || null, drawn: null };
+  if (cur.door === "blot" || cur.door === "camera") {
+    try { await IDB.put("find-" + it.id, await snapshot()); it.img = true; } catch (e) { toast("Картинку сохранить не удалось"); }
+  }
+  S.items.unshift(it); save(); stats();
+  $("#take").classList.add("done"); $("#take").textContent = "В улове ✓";
+  toast("Поймано");
+};
+$("#next").onclick = () => find(cur.door);
+$("#back").onclick = () => go("home");
+$("#surprise").onclick = () => { seen = 0; find(pick(D.doors).id); };
+$("#doors").onclick = e => { const b = e.target.closest("[data-door]"); if (b) { seen = 0; find(b.dataset.door); } };
+$("#tabs").onclick = e => { const b = e.target.closest("[data-go]"); if (b) go(b.dataset.go); };
+
+/* ---------- экран улова ---------- */
+const doorName = id => (D.doors.find(d => d.id === id) || {}).name || "";
+const fmtDate = s => { const [y, m, d] = s.split("-"); return +d + " " + ["янв", "фев", "мар", "апр", "мая", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"][m - 1]; };
+async function renderCatch() {
+  stats();
+  const now = new Date(), y = now.getFullYear(), m = now.getMonth(), days = new Date(y, m + 1, 0).getDate();
+  const on = new Set(S.items.filter(i => i.drawn).map(i => i.drawn));
+  let mh = ""; let cnt = 0;
+  for (let d = 1; d <= days; d++) {
+    const k = y + "-" + String(m + 1).padStart(2, "0") + "-" + String(d).padStart(2, "0"); if (on.has(k)) cnt++;
+    mh += `<i class="${on.has(k) ? "on" : ""}${d === now.getDate() ? " today" : ""}" title="${d}"></i>`;
+  }
+  $("#month").innerHTML = mh;
+  const mon = ["январе", "феврале", "марте", "апреле", "мае", "июне", "июле", "августе", "сентябре", "октябре", "ноябре", "декабре"][m];
+  $("#mlbl").textContent = cnt ? `Дней с линией в ${mon}: ${cnt}` : `Дни с линией в ${mon}. Нарисовал по улову — отметь.`;
+  const L = $("#list");
+  if (!S.items.length) { L.innerHTML = `<p class="none">Здесь будет всё, что зацепило. Открой любую дверь на «Охоте» и нажми «В улов».</p>`; return; }
+  L.innerHTML = S.items.map(it => {
+    const a = it.art ? ART.find(x => x.n === it.art) : null;
+    const extra = [it.task, it.twist, it.limit].filter(Boolean).join(" · ");
+    return `<div class="item" data-id="${it.id}">
+      ${a ? `<img class="th" src="${a.img}" alt="" loading="lazy">` : it.img ? `<img class="th" data-find="${it.id}" alt="">` : ""}
+      <div class="bd"><div class="dr">${esc(doorName(it.door))} · ${fmtDate(it.at)}</div>
+        <div class="tx">${esc(it.text)}</div>${extra ? `<div class="ex">${esc(extra)}</div>` : ""}
+        <div class="ib"><button data-act="drawn" class="${it.drawn ? "on" : ""}">${it.drawn ? "Нарисовал ✓" : "Нарисовал"}</button>
+        <button data-act="sketch">${it.sketch ? "Заменить эскиз" : "Фото эскиза"}</button><button data-act="del">Убрать</button></div></div>
+      ${it.sketch ? `<img class="sk" data-sketch="${it.id}" alt="эскиз">` : ""}</div>`;
+  }).join("");
+  for (const im of L.querySelectorAll("[data-find]")) IDB.get("find-" + im.dataset.find).then(b => { if (b) im.src = URL.createObjectURL(b); }).catch(() => {});
+  for (const im of L.querySelectorAll("[data-sketch]")) IDB.get("sketch-" + im.dataset.sketch).then(b => { if (b) im.src = URL.createObjectURL(b); }).catch(() => {});
+}
+let sketchFor = null;
+$("#list").onclick = async e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const id = b.closest(".item").dataset.id, it = S.items.find(i => i.id === id); if (!it) return;
+  if (b.dataset.act === "drawn") { it.drawn = it.drawn ? null : today(); save(); renderCatch(); if (it.drawn) toast("День с линией"); }
+  if (b.dataset.act === "sketch") { sketchFor = id; $("#sketchInput").click(); }
+  if (b.dataset.act === "del") {
+    if (!confirm("Убрать из улова?")) return;
+    S.items = S.items.filter(i => i.id !== id); save();
+    IDB.del("find-" + id).catch(() => {}); IDB.del("sketch-" + id).catch(() => {}); renderCatch();
+  }
+};
+$("#sketchInput").onchange = e => {
+  const file = e.target.files[0]; e.target.value = ""; if (!file || !sketchFor) return;
+  const id = sketchFor, url = URL.createObjectURL(file), im = new Image();
+  im.onload = () => {
+    const s = Math.min(1, 1000 / Math.max(im.width, im.height)), c = document.createElement("canvas");
+    c.width = Math.round(im.width * s); c.height = Math.round(im.height * s); c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+    URL.revokeObjectURL(url);
+    c.toBlob(async b => {
+      try { await IDB.put("sketch-" + id, b); } catch (er) { toast("Не удалось сохранить фото"); return; }
+      const it = S.items.find(i => i.id === id); if (it) { it.sketch = true; if (!it.drawn) it.drawn = today(); save(); }
+      renderCatch(); toast("Эскиз прикреплён");
+    }, "image/jpeg", .82);
+  };
+  im.src = url;
+};
+
+renderDoors(); stats();
+</script>
+</body>
+</html>
